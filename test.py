@@ -110,7 +110,7 @@ if __name__ == "__main__":
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model = TResUnet()
     model = model.to(device)
-    checkpoint_path = "files/checkpoint.pth"
+    checkpoint_path = "/model/CaiHaolun/TransResU-Net-1/files/checkpoint.pth"
     model.load_state_dict(torch.load(checkpoint_path, map_location=device))
     model.eval()
 

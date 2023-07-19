@@ -45,9 +45,9 @@ class DATASET(Dataset):
         """ Image """
         image = cv2.imread(self.images_path[index], cv2.IMREAD_COLOR)
         mask = cv2.imread(self.masks_path[index], cv2.IMREAD_GRAYSCALE)
-        # image = Image.open(self.images_path[index]).convert("RGB")
-        # mask = Image.open(self.masks_path[index]).convert("L")
-
+        #image = Image.open(self.images_path[index]).convert("RGB")
+        #mask = Image.open(self.masks_path[index]).convert("L")
+        
         if self.transform is not None:
             augmentations = self.transform(image=image, mask=mask)
             image = augmentations["image"]
@@ -60,7 +60,7 @@ class DATASET(Dataset):
         mask = cv2.resize(mask, size)
         mask = np.expand_dims(mask, axis=0)
         mask = mask/255.0
-
+        
         return image, mask
 
     def __len__(self):
@@ -162,14 +162,14 @@ if __name__ == "__main__":
     seeding(42)
 
     """ Directories """
-    create_dir("files")
+    create_dir("/output/files")
 
     """ Training logfile """
-    train_log_path = "files/train_log.txt"
+    train_log_path = "/output/files/train_log.txt"
     if os.path.exists(train_log_path):
         print("Log file exists")
     else:
-        train_log = open("files/train_log.txt", "w")
+        train_log = open("/output/files/train_log.txt", "w")
         train_log.write("\n")
         train_log.close()
 
@@ -185,8 +185,8 @@ if __name__ == "__main__":
     num_epochs = 500
     lr = 1e-4
     early_stopping_patience = 50
-    checkpoint_path = "files/checkpoint.pth"
-    path = "/media/nikhil/Seagate Backup Plus Drive/ML_DATASET/Kvasir-SEG"
+    checkpoint_path = "/output/files/checkpoint.pth"
+    path = "../data/CaiHaolun/Kvasir-SEG/Kvasir-SEG"
 
     data_str = f"Image Size: {size}\nBatch Size: {batch_size}\nLR: {lr}\nEpochs: {num_epochs}\n"
     data_str += f"Early Stopping Patience: {early_stopping_patience}\n"
